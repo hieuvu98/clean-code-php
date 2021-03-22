@@ -132,7 +132,7 @@ declare(strict_types=1);
 $json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 ```
 
-### Use searchable names (part 2)
+### Sử dụng tên có thể tìm kiếm (part 2)
 
 **Bad:**
 
@@ -183,8 +183,8 @@ $user->access ^= User::ACCESS_CREATE;
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use explanatory variables
-
+### Đặt tên biến dễ hiểu
+ 
 **Bad:**
 
 ```php
@@ -199,8 +199,7 @@ saveCityZipCode($matches[1], $matches[2]);
 
 **Not bad:**
 
-It's better, but we are still heavily dependent on regex.
-
+Tốt hơn một chút, nhưng vẫn còn phụ thuộc nhiều vào regex.
 ```php
 declare(strict_types=1);
 
@@ -214,7 +213,7 @@ saveCityZipCode($city, $zipCode);
 
 **Good:**
 
-Decrease dependence on regex by naming subpatterns.
+Đã giảm phụ thuộc vào regex bằng "naming subpatterns".
 
 ```php
 declare(strict_types=1);
@@ -228,10 +227,9 @@ saveCityZipCode($matches['city'], $matches['zipCode']);
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid nesting too deeply and return early (part 1)
+### Tránh lồng quá nhiều và return sớm (part 1)
 
-Too many if-else statements can make your code hard to follow. Explicit is better
-than implicit.
+Quá nhiều if-else sẽ khiến code của bạn khó theo dõi. Làm rõ rang tốt hơn là ngầm định.
 
 **Bad:**
 
@@ -277,7 +275,7 @@ function isShopOpen(string $day): bool
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid nesting too deeply and return early (part 2)
+### Tránh lồng quá nhiều và return sớm (part 2)
 
 **Bad:**
 
@@ -320,7 +318,7 @@ function fibonacci(int $n): int
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid Mental Mapping
+### Tránh hack não người đọc
 
 Don’t force the reader of your code to translate what the variable means.
 Explicit is better than implicit.
@@ -361,10 +359,9 @@ foreach ($locations as $location) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't add unneeded context
+### Đừng thêm nội dung không cần thiết
 
-If your class/object name tells you something, don't repeat that in your
-variable name.
+Nếu tên class/object của bạn nói cho bạn một vài thứ, đừng lặp lại chúng trong tên biến.
 
 **Bad:**
 
@@ -402,11 +399,11 @@ class Car
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use default arguments instead of short circuiting or conditionals
+### Sử dụng đối số mặc định thay vì phải kiểm tra bằng biểu thức điều kiện
 
 **Not good:**
 
-This is not good because `$breweryName` can be `NULL`.
+Chưa tốt bởi vì `$breweryName` có thể `NULL`.
 
 ```php
 function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
@@ -417,7 +414,7 @@ function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
 
 **Not bad:**
 
-This opinion is more understandable than the previous version, but it better controls the value of the variable.
+Ý kiến này dễ hiểu hơn phiên bản trước, nhưng nó kiểm soát tốt hơn giá trị của biến.
 
 ```php
 function createMicrobrewery($name = null): void
@@ -429,7 +426,8 @@ function createMicrobrewery($name = null): void
 
 **Good:**
 
- You can use [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) and be sure that the `$breweryName` will not be `NULL`.
+Bạn có thể sử dụng [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)
+và chắc chắn <code>$breweryName</code> sẽ không bị NULL.
 
 ```php
 function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
@@ -446,7 +444,7 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 
 **Not good:**
 
-The simple comparison will convert the string in an integer.
+So sánh đơn giản sẽ chuyển đổi string -> integer
 
 ```php
 declare(strict_types=1);
@@ -459,12 +457,12 @@ if ($a != $b) {
 }
 ```
 
-The comparison `$a != $b` returns `FALSE` but in fact it's `TRUE`!
-The string `42` is different than the integer `42`.
+Phép so sánh `$a != $b` returns `FALSE` nhưng trong thực tế kết quả phải là `TRUE`!
+Chuỗi `'42'` thì phải khác số `42`.
 
 **Good:**
 
-The identical comparison will compare type and value.
+Sử dụng identical comparison sẽ so sánh kiểu dữ liệu và giá trị.
 
 ```php
 declare(strict_types=1);
@@ -476,8 +474,6 @@ if ($a !== $b) {
     // The expression is verified
 }
 ```
-
-The comparison `$a !== $b` returns `TRUE`.
 
 **[⬆ back to top](#table-of-contents)**
 
