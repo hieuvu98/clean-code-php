@@ -1,4 +1,51 @@
 # Clean Code PHP
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Variables](#variables)
+  * [Use meaningful and pronounceable variable names](#use-meaningful-and-pronounceable-variable-names)
+  * [Use the same vocabulary for the same type of variable](#use-the-same-vocabulary-for-the-same-type-of-variable)
+  * [Use searchable names (part 1)](#use-searchable-names-part-1)
+  * [Use searchable names (part 2)](#use-searchable-names-part-2)
+  * [Use explanatory variables](#use-explanatory-variables)
+  * [Avoid nesting too deeply and return early (part 1)](#avoid-nesting-too-deeply-and-return-early-part-1)
+  * [Avoid nesting too deeply and return early (part 2)](#avoid-nesting-too-deeply-and-return-early-part-2)
+  * [Avoid Mental Mapping](#avoid-mental-mapping)
+  * [Don't add unneeded context](#dont-add-unneeded-context)
+  * [Use default arguments instead of short circuiting or conditionals](#use-default-arguments-instead-of-short-circuiting-or-conditionals)
+3. [Comparison](#comparison)
+  * [Use identical comparison](#use-identical-comparison)
+  * [Null coalescing operator](#null-coalescing-operator)
+4. [Functions](#functions)
+  * [Function arguments (2 or fewer ideally)](#function-arguments-2-or-fewer-ideally)
+  * [Function names should say what they do](#function-names-should-say-what-they-do)
+  * [Functions should only be one level of abstraction](#functions-should-only-be-one-level-of-abstraction)
+  * [Don't use flags as function parameters](#dont-use-flags-as-function-parameters)
+  * [Avoid Side Effects](#avoid-side-effects)
+  * [Don't write to global functions](#dont-write-to-global-functions)
+  * [Don't use a Singleton pattern](#dont-use-a-singleton-pattern)
+  * [Encapsulate conditionals](#encapsulate-conditionals)
+  * [Avoid negative conditionals](#avoid-negative-conditionals)
+  * [Avoid conditionals](#avoid-conditionals)
+  * [Avoid type-checking (part 1)](#avoid-type-checking-part-1)
+  * [Avoid type-checking (part 2)](#avoid-type-checking-part-2)
+  * [Remove dead code](#remove-dead-code)
+5. [Objects and Data Structures](#objects-and-data-structures)
+  * [Use object encapsulation](#use-object-encapsulation)
+  * [Make objects have private/protected members](#make-objects-have-privateprotected-members)
+6. [Classes](#classes)
+  * [Prefer composition over inheritance](#prefer-composition-over-inheritance)
+  * [Avoid fluent interfaces](#avoid-fluent-interfaces)
+  * [Prefer final classes](#prefer-final-classes)
+7. [SOLID](#solid)
+  * [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+  * [Open/Closed Principle (OCP)](#openclosed-principle-ocp)
+  * [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+  * [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+  * [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+8. [Don’t repeat yourself (DRY)](#dont-repeat-yourself-dry)
+9. [Translations](#translations)
+
 ## Introduction
 
 Các nguyên tắc kỹ thuật phần mềm, trích từ cuốn sách [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
@@ -39,7 +86,7 @@ $currentDate = $moment->format('y-m-d');
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use the same vocabulary for the same type of variable
+### Sử dụng cùng một từ vựng cho một loại biến
 
 **Bad:**
 
@@ -62,12 +109,11 @@ getUser();
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use searchable names (part 1)
+### Sử dụng tên có thể tìm kiếm (part 1)
 
-We will read more code than we will ever write. It's important that the code we do write is
-readable and searchable. By *not* naming variables that end up being meaningful for
-understanding our program, we hurt our readers.
-Make your names searchable.
+Chúng ta thường đọc code nhiều hơn là viết code. Điều quan trọng là code của chúng ta viết ra dễ đọc và dễ tìm kiếm. Nếu 
+không đặt tên biến có ý nghĩa và làm chương chình dễ hiểu, chúng ra gây khó cho người đọc. Làm cho tên biến có thể tìm 
+kiếm được:
 
 **Bad:**
 
