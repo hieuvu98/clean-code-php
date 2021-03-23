@@ -1187,11 +1187,9 @@ function combine(int $val1, int $val2): int
 
 **[⬆ back to top](#table-of-contents)**
 
-### Remove dead code
+### Xóa dead code
 
-Dead code is just as bad as duplicate code. There's no reason to keep it in
-your codebase. If it's not being called, get rid of it! It will still be safe
-in your version history if you still need it.
+Dead code cũng tệ giống như dupplicate code. Không có lý do gì để giữ nó trong basecode. Nếu nó không được gọi, hãy lọa bỏ nó. Nó sẽ vẫn an toàn trong lịch sử phiên bản của bạn nếu bạn vẫn cần nó.
 
 **Bad:**
 
@@ -1229,23 +1227,20 @@ inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 **[⬆ back to top](#table-of-contents)**
 
 
-## Objects and Data Structures
+## Đối tượng và cấu trúc dữ liệu
 
-### Use object encapsulation
+### Sử dụng tính năng đóng gói đối tượng
 
-In PHP you can set `public`, `protected` and `private` keywords for methods.
-Using it, you can control properties modification on an object.
+Trong PHP bạn có thể set `public`, `protected` và `private` cho phương thức. Sử dụng nó, bạn có thể điều khiển, kiểm soát việc sử đổi thuộc tính trên đối tượng.
 
-* When you want to do more beyond getting an object property, you don't have
-to look up and change every accessor in your codebase.
-* Makes adding validation simple when doing a `set`.
-* Encapsulates the internal representation.
-* Easy to add logging and error handling when getting and setting.
-* Inheriting this class, you can override default functionality.
-* You can lazy load your object's properties, let's say getting it from a
-server.
+* Khi bạn muốn làm nhiều việc hơn, bạn không phải tìm kiếm và thay đổi mọi công cụ truy cập
+* Làm cho viêc xác thực trở nên đơn giản khi thực hiện một tập hợp `set`.
+* Đóng gói bên trong mô hình.
+* Dễ dàng thêm loggging và xử lý error với getting và setting
+* Kế thừa class, bạn có thể ghi đề hàm chức năng.
+* Ngoài ra bạn có thể lazy load các thuộc tính của đối tượng, giả sử lấy nó từ một máy chủ.
 
-Additionally, this is part of [Open/Closed](#openclosed-principle-ocp) principle.
+Ngoài ra đây là một phần của nguyên tắc [Open/Closed](#openclosed-principle-ocp).
 
 **Bad:**
 
