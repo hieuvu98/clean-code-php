@@ -477,9 +477,9 @@ if ($a !== $b) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Null coalescing operator
+### Toán tử liên kết null
 
-Null coalescing is a new operator [introduced in PHP 7](https://www.php.net/manual/en/migration70.new-features.php). The null coalescing operator `??` has been added as syntactic sugar for the common case of needing to use a ternary in conjunction with `isset()`. It returns its first operand if it exists and is not `null`; otherwise it returns its second operand.
+Liên kết null là một toán tử [giới thiệu trong PHP 7](https://www.php.net/manual/en/migration70.new-features.php). Toán tử liên kết null `??` được thêm vào như một đường cú pháp đối với trường hợp phổ biến là cần sử dụng toán tử ba ngôi kết hợp với `isset()`. Nó sẽ trả về toán hạng đầu tiên nếu nó tồn ttaij và không `null`
 
 **Bad:**
 
@@ -504,18 +504,15 @@ $name = $_GET['name'] ?? $_POST['name'] ?? 'nobody';
 
 **[⬆ back to top](#table-of-contents)**
 
-## Functions
+## Hàm
 
-### Function arguments (2 or fewer ideally)
+### Tham số của hàm (lý tưởng là ít hơn hoặc bằng 2)
 
-Limiting the amount of function parameters is incredibly important because it makes
-testing your function easier. Having more than three leads to a combinatorial explosion
-where you have to test tons of different cases with each separate argument.
+Việc giới hạn số lượng tham số của hàm vô cùng quan trọng vì nó giúp kiểm trả hàm của bạn dễ dàng hơn. Nhiều hơn 3 đối số dẫn đến có nhiều tổ hợp, nơi bạn kiểm trả hàng tấn các trường hợp khác nhau với mỗi đối số riêng.
 
-Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided.
-Anything more than that should be consolidated. Usually, if you have more than two
-arguments then your function is trying to do too much. In cases where it's not, most
-of the time a higher-level object will suffice as an argument.
+Không có đối số là một trường hợp lý tưởng. Một hoặc hai đối số là OK và ba đối số nên tránh. Bất kỳ những cái gì nhiều hơn thế nên được củng cố lại.
+
+Thông thường nếu bạn có nhiều hơn hai đối số thì hàm của bạn đang cố găng thưc hiện quá nhiều. Truong trường hơp không, hầu hết một object higher-level sẽ đủ như là một đối số.
 
 **Bad:**
 
@@ -606,7 +603,7 @@ class Questionnaire
 
 **[⬆ back to top](#table-of-contents)**
 
-### Function names should say what they do
+### Tên hàm phải nói lên nhưng gì chúng ra làm
 
 **Bad:**
 
@@ -646,11 +643,9 @@ $message->send();
 
 **[⬆ back to top](#table-of-contents)**
 
-### Functions should only be one level of abstraction
+### Các hàm chỉ nên có một cấp độ trừu tượng
 
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
+Khi bạn có nhiều hơn một cập độ trừu tượng, hàm của bạn thường hoạt động quá nhiều. Chia nhỏ các chức năng dẫn đến việc tái sử dụng và kiểm tra dễ dàng hơn.
 
 **Bad:**
 
@@ -684,7 +679,7 @@ function parseBetterPHPAlternative(string $code): void
 
 **Bad too:**
 
-We have carried out some of the functionality, but the `parseBetterPHPAlternative()` function is still very complex and not testable.
+Chúng ra đã thực hiện nhưng hàm `parseBetterPHPAlternative()` vẫn rất phức tạp và không thể kiểm tra được.
 
 ```php
 function tokenize(string $code): array
@@ -726,7 +721,7 @@ function parseBetterPHPAlternative(string $code): void
 
 **Good:**
 
-The best solution is move out the dependencies of `parseBetterPHPAlternative()` function.
+Giải pháp tôt nhất là loại bỏ các dependencies khỏi hàm `parseBetterPHPAlternative()`.
 
 ```php
 class Tokenizer
@@ -786,11 +781,9 @@ class BetterPHPAlternative
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't use flags as function parameters
+### Đừng sử dụng cờ như một đối số của hàm
 
-Flags tell your user that this function does more than one thing. Functions should
-do one thing. Split out your functions if they are following different code paths
-based on a boolean.
+Cờ nói cho người dùng của bạn biết rằng hàm này làm nhiều hơn một việc. Các hàm nên làm một việc. Tách hàm của bạn ra nếu chúng đi theo các luồng khác dựa trên boolean.
 
 **Bad:**
 
@@ -825,21 +818,13 @@ function createTempFile(string $name): void
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid Side Effects
+### Tránh tác dụng phụ
 
-A function produces a side effect if it does anything other than take a value in and
-return another value or values. A side effect could be writing to a file, modifying
-some global variable, or accidentally wiring all your money to a stranger.
+Một hàm tạo ra các hiệu ứng phụ nếu nó làm bất kỳ điều gì ngoài việc lấy giá trị và trả về một giá trị khác. Tác dụng phụ có thể là viết vào một file nào đó, sử dụng sửa đối biến global, hoặc vô tình chuyển hết tiền của bạn cho ai đó.
 
-Now, you do need to have side effects in a program on occasion. Like the previous
-example, you might need to write to a file. What you want to do is to centralize where
-you are doing this. Don't have several functions and classes that write to a particular
-file. Have one service that does it. One and only one.
+Bây giờ, bạn cần làm việc với các tác dụng phụ đó trong chương trình. Giống như ví dụ trước, bạn có thể cần ghi vào một file. Điều bạn cần làm là tập trung vào nơi bạn làm việc với nó. Đừng làm một vài hàm, class để ghi vào một file cụ thể. Hãy tạo một service để làm việc đó. Một và chỉ một.
 
-The main point is to avoid common pitfalls like sharing state between objects without
-any structure, using mutable data types that can be written to by anything, and not
-centralizing where your side effects occur. If you can do this, you will be happier
-than the vast majority of other programmers.
+Điểm chính là tránh lỗi phổ biến như: chia sẻ trạng thái object mà không tuân theo cấu trúc nào, sử dụng các kiểu dữ liệu có thể thay đổi/bị thay đổi bởi bất cứ thứ gì, và không tổng hợp các tác dụng phụ có thể xảy ra khi viết hàm.
 
 **Bad:**
 
@@ -885,13 +870,9 @@ var_dump($newName);
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't write to global functions
+### Đừng viết hàm global
 
-Polluting globals is a bad practice in many languages because you could clash with another
-library and the user of your API would be none-the-wiser until they get an exception in
-production. Let's think about an example: what if you wanted to have configuration array?
-You could write global function like `config()`, but it could clash with another library
-that tried to do the same thing.
+Dùng nhiều hàm global là một thực hành động tệ với nhiều ngôn ngữu bởi vì bạn có thể gây xung đột với thư viện và người dùng api của bạn không hề biết gì cho đến khi họ nhận được rồi của sản phẩm. Hãy suy nghĩ về một vài ví dụ: Điều gì xảy ra nếu bạn muốn cấu hình một mảng? Bạn có thể viêt một làm global giống như `config()` nhưng nó có thể bị xung đột với các thư viện khác.
 
 **Bad:**
 
@@ -928,7 +909,7 @@ class Configuration
 }
 ```
 
-Load configuration and create instance of `Configuration` class
+Load configuration và tạo instance của lớp `Configuration`
 
 ```php
 declare(strict_types=1);
@@ -938,19 +919,17 @@ $configuration = new Configuration([
 ]);
 ```
 
-And now you must use instance of `Configuration` in your application.
-
 **[⬆ back to top](#table-of-contents)**
 
-### Don't use a Singleton pattern
+### Đừng sử dụng Singleton pattern
 
-Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
- 1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
- 2. They violate the [single responsibility principle](#single-responsibility-principle-srp): by virtue of the fact that **they control their own creation and lifecycle**.
- 3. They inherently cause code to be tightly [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). This makes faking them out under **test rather difficult** in many cases.
- 4. They carry state around for the lifetime of the application. Another hit to testing since **you can end up with a situation where tests need to be ordered** which is a big no for unit tests. Why? Because each unit test should be independent from the other.
+Singleton là một [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Trích đoạn từ Brian Button:
+ 1. Chúng thường được sử dụng như là một **global instance**, tại sao nó tệ? Bởi vì **bạn ẩn dependencies** của ứng dụng bên trong code của bạn, thay vì thể hiện chúng qua interfaces [code smell](https://en.wikipedia.org/wiki/Code_smell).
+ 2. Chúng vi phạm [single responsibility principle](#single-responsibility-principle-srp): theo thực tế là **chúng điều khiển những gì tạo chúng ra và vòng đời của nó**.
+ 3. Chúng vốn dĩ khiến code kết hợp chặt chẽ với nhau [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). Điều này làm cho việc làm giả chúng gây **khó khăn để kiểm tra** trong nhiều trường hợp.
+ 4. Chúng giữ trạng thái trong suốt vòng đời của ứng dụng. Một điểm khác đối với quá trình thử nghiệm **bạn có thể gặp phải phải mà các unit test cần phải được sắp xếp** đây là một điều không tốt đối với các unit test. Tại sao? Bởi vì mỗi unit test nên đọc lập với các unit test khác.
 
-There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
+Đây cũng là suy nghĩ tốt của [Misko Hevery](http://misko.hevery.com/about/) về [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
 
 **Bad:**
 
@@ -997,7 +976,7 @@ class DBConnection
 }
 ```
 
-Create instance of `DBConnection` class and configure it with [DSN](http://php.net/manual/en/pdo.construct.php#refsect1-pdo.construct-parameters).
+Tạo instance lớp `DBConnection` và cấu hình chúng với [DSN](http://php.net/manual/en/pdo.construct.php#refsect1-pdo.construct-parameters).
 
 ```php
 declare(strict_types=1);
@@ -1005,11 +984,11 @@ declare(strict_types=1);
 $connection = new DBConnection($dsn);
 ```
 
-And now you must use instance of `DBConnection` in your application.
+Và bây giờ bạn phải sử dụng instance `DBConnection` cho ứng dụng của bạn.
 
 **[⬆ back to top](#table-of-contents)**
 
-### Encapsulate conditionals
+### Đóng gói điều kiện
 
 **Bad:**
 
@@ -1033,7 +1012,7 @@ if ($article->isPublished()) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid negative conditionals
+### Tránh các điều kiện phủ định
 
 **Bad:**
 
@@ -1067,16 +1046,9 @@ if (isDOMNodePresent($node)) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid conditionals
+### Tránh dụng điều kiện
 
-This seems like an impossible task. Upon first hearing this, most people say,
-"how am I supposed to do anything without an `if` statement?" The answer is that
-you can use polymorphism to achieve the same task in many cases. The second
-question is usually, "well that's great but why would I want to do that?" The
-answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you
-are telling your user that your function does more than one thing. Remember,
-just do one thing.
+Điều này có vẻ không khả thi. Khi lần đầu nghe điều này hầu hết mọi người nói "làm thế nào mà tôi muốn làm một vài thứ gì đó mà không có `if`". Câu trả lời là bạn có thể sử dụng đa hình để hoàn thành việc đó trong nhiều trường hợp. Câu hỏi thứ hai luôn luôn là "Ồ, thật tuyệt nhưng tại sao tôi lại muốn làm điều đó?" Câu trả lời là  một khái niệm clean code trước đây mà chúng ra đã học: một làm chỉ nên làm một việc. Khi bạn có các lớp và hàm có câu lệnh `if`. Bạn đang nói với chúng rằng hàm của bạn sẽ thực hiện nhiều hơn một việc
 
 **Bad:**
 
@@ -1146,8 +1118,9 @@ class Cessna implements Airplane
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid type-checking (part 1)
+### Tránh kiểm trả kiểu dữ kiệu (part 1)
 
+PHP là ngôn ngữ không ràng buộc kiểu dữ kiệu, có nghĩa là hàm của bạn có thể nhận bất kỳ kiểu tham số nào. Thỉnh thoàng bạn cảm thấy khó chịu bởi sự tự dò này, và nó là điều kiện để ta kiểm tra dữ liệu trong hàm. Có nhiều cách để tranh phải làm vỉevggg
 PHP is untyped, which means your functions can take any type of argument.
 Sometimes you are bitten by this freedom and it becomes tempting to do
 type-checking in your functions. There are many ways to avoid having to do this.
@@ -1181,17 +1154,10 @@ function travelToTexas(Vehicle $vehicle): void
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid type-checking (part 2)
+### Tránh kiểu dữ liệu (part 2)
 
-If you are working with basic primitive values like strings, integers, and arrays,
-and you use PHP 7+ and you can't use polymorphism but you still feel the need to
-type-check, you should consider
-[type declaration](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)
-or strict mode. It provides you with static typing on top of standard PHP syntax.
-The problem with manually type-checking is that doing it will require so much
-extra verbiage that the faux "type-safety" you get doesn't make up for the lost
-readability. Keep your PHP clean, write good tests, and have good code reviews.
-Otherwise, do all of that but with PHP strict type declaration or strict mode.
+Nếu bạn đang làm việc với các giá trị nguyên thủy như string, int, array và bạn sử dụng PHP 7+ và bạn không thể sử dụng tính đa hình nhưng bạn vẫn cảm thấy thoải mái thấy cần phải kiểm tra kiểu dữ liệu, bạn nên xem [type declaration](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)
+hoặc strict mode. Nó cung cấp cho bạn kiểu static của PHP syntax. Vấn đề với việc kiểm tra kiểu thủ công là việc thực hiện nó đòi hỏi chi tiết. Hãy giữ cho PHP clean, viết test tốt và review code. Nếu không hãy làm tất cả nhứng điều đó với strict type hoặc strict mode.
 
 **Bad:**
 
